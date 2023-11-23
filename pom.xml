@@ -46,6 +46,7 @@
         <module>microsphere-configuration-parent</module>
         <module>microsphere-configuration-dependencies</module>
         <module>microsphere-configuration-commons</module>
+        <module>microsphere-configuration-apollo-spring</module>
         <module>microsphere-configuration-etcd-spring</module>
         <module>microsphere-configuration-zookeeper-spring</module>
     </modules>
