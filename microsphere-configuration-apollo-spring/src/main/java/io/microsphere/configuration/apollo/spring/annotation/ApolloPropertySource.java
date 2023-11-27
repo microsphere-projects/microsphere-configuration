@@ -37,8 +37,6 @@ import java.lang.annotation.Target;
 import static com.ctrip.framework.apollo.core.ApolloClientSystemConsts.APOLLO_CLUSTER;
 import static com.ctrip.framework.apollo.core.ApolloClientSystemConsts.APOLLO_META;
 import static com.ctrip.framework.apollo.core.ApolloClientSystemConsts.APP_ID;
-import static com.ctrip.framework.apollo.core.ConfigConsts.APOLLO_CLUSTER_KEY;
-import static com.ctrip.framework.apollo.core.ConfigConsts.APOLLO_META_KEY;
 import static com.ctrip.framework.apollo.core.ConfigConsts.CLUSTER_NAME_DEFAULT;
 import static com.ctrip.framework.apollo.core.ConfigConsts.NAMESPACE_APPLICATION;
 import static com.ctrip.framework.apollo.spring.config.PropertySourcesConstants.APOLLO_BOOTSTRAP_NAMESPACES;

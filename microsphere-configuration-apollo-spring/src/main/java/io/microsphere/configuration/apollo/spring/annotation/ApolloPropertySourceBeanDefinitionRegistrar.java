@@ -51,14 +51,12 @@ import java.util.concurrent.ConcurrentMap;
 import static com.ctrip.framework.apollo.core.ApolloClientSystemConsts.APOLLO_CLUSTER;
 import static com.ctrip.framework.apollo.core.ApolloClientSystemConsts.APOLLO_META;
 import static com.ctrip.framework.apollo.core.ApolloClientSystemConsts.APP_ID;
-import static com.ctrip.framework.apollo.core.ConfigConsts.APOLLO_META_KEY;
 import static com.ctrip.framework.apollo.spring.config.PropertySourcesConstants.APOLLO_BOOTSTRAP_NAMESPACES;
 import static com.ctrip.framework.apollo.spring.config.PropertySourcesConstants.APOLLO_PROPERTY_SOURCE_NAME;
 import static io.microsphere.spring.config.env.event.PropertySourceChangedEvent.added;
 import static io.microsphere.spring.config.env.event.PropertySourceChangedEvent.removed;
 import static io.microsphere.spring.config.env.event.PropertySourceChangedEvent.replaced;
 import static io.microsphere.spring.core.annotation.ResolvablePlaceholderAnnotationAttributes.of;
-import static io.microsphere.spring.util.PropertySourcesUtils.getDefaultProperties;
 
 /**
  * {@link ApolloPropertySource} {@link ImportBeanDefinitionRegistrar} to register the Apollo Configuration
