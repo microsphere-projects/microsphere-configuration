@@ -19,9 +19,12 @@ package io.microsphere.configuration.apollo.spring.annotation;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.env.Environment;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * {@link ApolloPropertySource} Test
@@ -36,11 +39,20 @@ import org.springframework.test.context.junit4.SpringRunner;
 })
 public class ApolloPropertySourceTest {
 
-    @Autowired
-    private Environment environment;
+    @Value("${my.id}")
+    private String id;
+
+    @Value("${my.name}")
+    private String name;
+
+    @Value("${my.country}")
+    private String country;
 
     @Test
     public void test() {
+        assertEquals("mercyblitz", id);
+        assertEquals("Mercy Ma", name);
+        assertEquals("China", country);
     }
 
     @ApolloPropertySource

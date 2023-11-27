@@ -38,19 +38,27 @@ import org.springframework.core.env.MapPropertySource;
 import org.springframework.core.env.MutablePropertySources;
 import org.springframework.core.env.PropertySource;
 import org.springframework.core.type.AnnotationMetadata;
+import org.springframework.util.StringUtils;
 
 import java.lang.annotation.Annotation;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Properties;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
+import static com.ctrip.framework.apollo.core.ApolloClientSystemConsts.APOLLO_CLUSTER;
+import static com.ctrip.framework.apollo.core.ApolloClientSystemConsts.APOLLO_META;
+import static com.ctrip.framework.apollo.core.ApolloClientSystemConsts.APP_ID;
+import static com.ctrip.framework.apollo.core.ConfigConsts.APOLLO_META_KEY;
+import static com.ctrip.framework.apollo.spring.config.PropertySourcesConstants.APOLLO_BOOTSTRAP_NAMESPACES;
 import static com.ctrip.framework.apollo.spring.config.PropertySourcesConstants.APOLLO_PROPERTY_SOURCE_NAME;
 import static io.microsphere.spring.config.env.event.PropertySourceChangedEvent.added;
 import static io.microsphere.spring.config.env.event.PropertySourceChangedEvent.removed;
 import static io.microsphere.spring.config.env.event.PropertySourceChangedEvent.replaced;
 import static io.microsphere.spring.core.annotation.ResolvablePlaceholderAnnotationAttributes.of;
+import static io.microsphere.spring.util.PropertySourcesUtils.getDefaultProperties;
 
 /**
  * {@link ApolloPropertySource} {@link ImportBeanDefinitionRegistrar} to register the Apollo Configuration
@@ -75,7 +83,9 @@ public class ApolloPropertySourceBeanDefinitionRegistrar extends BeanCapableImpo
     public void registerBeanDefinitions(AnnotationMetadata metadata, BeanDefinitionRegistry registry) {
         Class<? extends Annotation> annotationType = ApolloPropertySource.class;
         Map<String, Object> annotationAttributes = metadata.getAnnotationAttributes(annotationType.getName());
-        this.attributes = of(annotationAttributes, annotationType, getEnvironment());
+        ResolvablePlaceholderAnnotationAttributes attributes = of(annotationAttributes, annotationType, getEnvironment());
+        setSystemPropertiesFromAttributes(attributes);
+        this.attributes = attributes;
     }
 
     @Override
@@ -154,7 +164,7 @@ public class ApolloPropertySourceBeanDefinitionRegistrar extends BeanCapableImpo
         // clone a new PropertySource as the old
         oldPropertySource = clonePropertySource(configPropertySourceName, configPropertySource);
 
-        oldPropertySourcesMap.put(configPropertySourceName, clonePropertySource(configPropertySourceName, configPropertySource));
+        oldPropertySourcesMap.put(configPropertySourceName, oldPropertySource);
     }
 
     private PropertySource clonePropertySource(String configPropertySourceName, ConfigPropertySource configPropertySource) {
@@ -165,6 +175,32 @@ public class ApolloPropertySourceBeanDefinitionRegistrar extends BeanCapableImpo
             properties.put(propertyName, propertyValue);
         }
         return new MapPropertySource(configPropertySourceName, properties);
+    }
+
+
+    private static void setSystemPropertiesFromAttributes(ResolvablePlaceholderAnnotationAttributes attributes) {
+
+        String appId = attributes.getString("appId");
+        String meta = attributes.getString("meta");
+        String cluster = attributes.getString("cluster");
+        String[] namespace = attributes.getStringArray("namespace");
+
+        Properties systemProperties = System.getProperties();
+
+        setSystemProperty(systemProperties, APP_ID, appId);
+        setSystemProperty(systemProperties, APOLLO_META, meta);
+        setSystemProperty(systemProperties, APOLLO_CLUSTER, cluster);
+        setSystemProperty(systemProperties, APOLLO_BOOTSTRAP_NAMESPACES, StringUtils.arrayToCommaDelimitedString(namespace));
+    }
+
+    private static void setSystemProperty(Properties systemProperties, String key, String value) {
+        if (!StringUtils.hasText(value)) {
+            return;
+        }
+        if (systemProperties.contains(key)) {
+            return;
+        }
+        systemProperties.put(key, value);
     }
 
     @Override
