@@ -68,8 +68,8 @@ import static io.microsphere.spring.core.annotation.ResolvablePlaceholderAnnotat
  * @see PropertySourcesProcessor
  * @since 1.0.0
  */
-public class ApolloPropertySourceBeanDefinitionRegistrar extends BeanCapableImportCandidate implements
-        BeanFactoryPostProcessor, ApplicationContextAware {
+public class ApolloPropertySourceBeanDefinitionRegistrar extends BeanCapableImportCandidate
+        implements ImportBeanDefinitionRegistrar, BeanFactoryPostProcessor, ApplicationContextAware {
 
     private ResolvablePlaceholderAnnotationAttributes attributes;
 
