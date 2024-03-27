@@ -23,12 +23,6 @@
 
             <dependency>
                 <groupId>io.github.microsphere-projects</groupId>
-                <artifactId>microsphere-configuration-commons</artifactId>
-                <version>${revision}</version>
-            </dependency>
-
-            <dependency>
-                <groupId>io.github.microsphere-projects</groupId>
                 <artifactId>microsphere-configuration-apollo-spring</artifactId>
                 <version>${revision}</version>
             </dependency>
