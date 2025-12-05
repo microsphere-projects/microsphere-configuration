@@ -61,6 +61,7 @@
         <module>microsphere-configuration-apollo-spring</module>
         <module>microsphere-configuration-etcd-spring</module>
         <module>microsphere-configuration-zookeeper-spring</module>
+        <module>microsphere-configuration-nacos-spring</module>
     </modules>
 
     <distributionManagement>
