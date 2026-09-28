@@ -19,13 +19,40 @@
     <description>Microsphere Configuration Parent</description>
 
     <properties>
-        <microsphere-spring-cloud.version>${revision}</microsphere-spring-cloud.version>
+        <microsphere-spring-cloud.version>0.2.5</microsphere-spring-cloud.version>
         <!-- Third-party versions -->
         <apollo.version>1.9.2</apollo.version>
     </properties>
 
     <dependencyManagement>
         <dependencies>
+
+            <!-- Spring Boot Dependencies -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-dependencies</artifactId>
+                <version>${spring-boot.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- Spring Cloud Dependencies -->
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <!-- Spring Cloud Alibaba Dependencies -->
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${spring-cloud-alibaba.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
 
             <!-- Microsphere Spring Cloud Dependencies -->
             <dependency>
@@ -45,5 +72,49 @@
 
         </dependencies>
     </dependencyManagement>
+
+    <profiles>
+
+        <!-- Spring Cloud Profiles -->
+        <profile>
+            <id>spring-cloud-2022</id>
+            <properties>
+                <spring-boot.version>3.0.13</spring-boot.version>
+                <spring-cloud.version>2022.0.5</spring-cloud.version>
+                <spring-cloud-alibaba.version>2022.0.0.2</spring-cloud-alibaba.version>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>spring-cloud-2023</id>
+            <properties>
+                <spring-boot.version>3.3.13</spring-boot.version>
+                <spring-cloud.version>2023.0.6</spring-cloud.version>
+                <spring-cloud-alibaba.version>2023.0.3.2</spring-cloud-alibaba.version>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>spring-cloud-2024</id>
+            <properties>
+                <spring-boot.version>3.4.7</spring-boot.version>
+                <spring-cloud.version>2024.0.2</spring-cloud.version>
+                <spring-cloud-alibaba.version>2023.0.3.2</spring-cloud-alibaba.version>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>spring-cloud-2025</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <spring-boot.version>3.5.0</spring-boot.version>
+                <spring-cloud.version>2025.0.0</spring-cloud.version>
+                <spring-cloud-alibaba.version>2023.0.3.2</spring-cloud-alibaba.version>
+            </properties>
+        </profile>
+
+    </profiles>
 
 </project>

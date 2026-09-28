@@ -20,7 +20,6 @@ import com.ctrip.framework.apollo.core.ApolloClientSystemConsts;
 import com.ctrip.framework.apollo.core.ConfigConsts;
 import com.ctrip.framework.apollo.spring.annotation.EnableApolloConfig;
 import com.ctrip.framework.apollo.spring.config.PropertySourcesConstants;
-import io.microsphere.spring.util.PropertySourcesUtils;
 import org.springframework.context.annotation.Import;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.AliasFor;
@@ -63,7 +62,7 @@ public @interface ApolloPropertySource {
      * {@link System#getProperties() the System Properties}.
      *
      * @return "default" as the default if the Spring property "app.id" is missing
-     * @see PropertySourcesUtils#getDefaultPropertiesPropertySource(ConfigurableEnvironment)
+     * @see io.microsphere.spring.core.env.PropertySourcesUtils#getDefaultPropertiesPropertySource(ConfigurableEnvironment)
      * @see ApolloClientSystemConsts#APP_ID
      */
     String appId() default "${" + APP_ID + ":default}";
